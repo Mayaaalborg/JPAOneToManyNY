@@ -46,4 +46,5 @@ public class Kommune {
     public void setRegion(Region region) {
         this.region = region;
     }
+
 }

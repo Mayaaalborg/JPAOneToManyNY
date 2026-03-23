@@ -1,0 +1,39 @@
+package org.example.jpaonetomanyf25b.controller;
+
+import org.example.jpaonetomanyf25b.exception.ResourceNotFoundException;
+import org.example.jpaonetomanyf25b.model.Region;
+import org.example.jpaonetomanyf25b.repository.RegionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@CrossOrigin("*")
+public class RegionController {
+
+    @Autowired
+    RegionRepository regionRepository;
+
+
+    @GetMapping("/regioner")
+    public List <Region> getRegions(){
+        return regionRepository.findAll ();
+    }
+
+    @PostMapping("/region")
+    public ResponseEntity<Region> postRegion(@RequestBody Region region){
+        Region savedRegion = regionRepository.save(region);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedRegion);
+    }
+
+    @GetMapping("regioner/name/{name}")
+    public Region getRegionByName(@PathVariable String name) {
+        return regionRepository.findRegionByNavn(name).orElseThrow(() -> new ResourceNotFoundException("Region ikke fundet med navn" + name));
+
+    }
+
+}
+
