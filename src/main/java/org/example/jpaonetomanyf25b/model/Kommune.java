@@ -15,6 +15,15 @@ public class Kommune {
     @JoinColumn(name = "regionfk", referencedColumnName = "kode")
     private Region region;
 
+
+    public Kommune() {
+    }
+
+    public Kommune(String kode, String navn) {
+        this.kode = kode;
+        this.navn = navn;
+    }
+
     public String getKode() {
         return kode;
     }
