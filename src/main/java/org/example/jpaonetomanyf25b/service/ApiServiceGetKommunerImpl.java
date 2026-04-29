@@ -29,6 +29,13 @@ public class ApiServiceGetKommunerImpl implements ApiServiceGetKommuner{
     }
 
     @Override
+    public List<Kommune> getKommunerStartsWith(Character c) {
+        List<Kommune> lstKom = kommuneRepository.findAll();
+        return lstKom.stream().filter(kom -> kom.getNavn().charAt(0) == c).toList();
+    }
+
+
+    @Override
     public List<Kommune> getKommuner() {
         RestClient.ResponseSpec responseSpec = restClient.get()
                 .uri(kommuneUrl)
